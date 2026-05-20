@@ -2,7 +2,9 @@
 // #include<string.h>
 #include "Shapes.h"
 
-int Shapes[10][3][2] = {
+#define Max 10
+
+int Shapes[Max][3][2] = {
     {{0, 1},
      {1, 1},
      {0, 1}}};
@@ -25,5 +27,15 @@ char *BlockMaker(int BlockValue)
         strcat(block, "\n");
     }
     return block;
+}
+
+
+
+int RandomvalueGen(int Value)
+{
+    srand(time(NULL));
+    if(Value==0)return rand() % Max;
+    else return rand()%Value;
+    
 }
 
