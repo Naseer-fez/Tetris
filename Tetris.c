@@ -14,19 +14,11 @@ To compile
 // char grid[Height][Length];
 int Postion[Height][Length];
 void GridPrinting();
-void BorderMaker();
 void BlockPlacement(int HorPlacement, int virPlacement);
 bool isvalid(int *block, int len, int hor, int ver);
 // char *BlockMaker(int BlockValue);
 
-typedef struct
-{
-    unsigned char Horizontal;
-    unsigned char Vertical;
 
-} Side;
-
-Side Directions[Length - 2];
 // Start from 1 and go till Length -2 for the values
 void timepass()
 {
@@ -46,42 +38,10 @@ void timepass()
 
 int main()
 {
-    BorderMaker();
     BlockPlacement(-1, -1);
     // timepass();
     GridPrinting();
 }
-
-// void BorderMaker()
-// {
-//     for (int i = 0; i < Length - 2; i++)
-//     {
-//         Directions[i].Horizontal = Length - 2;
-//         Directions[i].Vertical = Height - 2;
-//     }
-
-//     for (int row = 0; row < Height; row++)
-//     {
-//         for (int col = 0; col < Length; col++)
-//         {
-//             if ((row == 0) || (row == Height - 1))
-//             {
-//                 grid[row][col] = '-';
-//                 Postion[row][col] = -1;
-//             }
-//             else if ((col == 0) || (col == Length - 1))
-//             {
-//                 grid[row][col] = '|';
-//                 Postion[row][col] = -1;
-//             }
-//             else
-//             {
-//                 grid[row][col] = '.';
-//                 Postion[row][col] = 0;
-//             }
-//         }
-//     }
-// }
 
 bool isvalid(int *block, int len, int hor, int ver)
 {
@@ -138,27 +98,16 @@ void BlockPlacement(int HorPlacement, int virPlacement)
     }
 }
 
-// void GridPrinting()
-// {
-//     for (int i = 0; i < Height; i++)
-//     {
-//         for (int j = 0; j < Length; j++)
-//         {
-//             printf("%c", grid[i][j]);
-//         }
-//         printf("\n");
-//     }
-// }
 void GridPrinting()
 {
     for (int i = 0; i < Height; i++)
     {
         for (int j = 0; j < Length; j++)
         {
-            int value=Postion[i][j];
-            if ( value== -1)
+            int value = Postion[i][j];
+            if (value == -1)
             {
-               if (i == 0 || i == Height - 1)
+                if (i == 0 || i == Height - 1)
                 {
                     printf("-");
                 }
@@ -166,19 +115,22 @@ void GridPrinting()
                 {
                     printf("|");
                 }
-                
-            }else{
-            if (value==0){
-                printf(".");
             }
-            else if (value==-2){
-                printf("#");
+            else
+            {
+                if (value == 0)
+                {
+                    printf(".");
+                }
+                else if (value == -2)
+                {
+                    printf("#");
+                }
+                else if (value == 1)
+                {
+                    printf("$");
+                }
             }
-            else if (value==1){
-                printf("$");
-            }
-        }
-
         }
         printf("\n");
     }
