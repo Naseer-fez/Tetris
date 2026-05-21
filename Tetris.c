@@ -16,16 +16,18 @@ int Postion[Height][Length];
 void GridPrinting();
 void BlockPlacement(int HorPlacement, int virPlacement);
 bool isvalid(int *block, int len, int hor, int ver);
+void CheckifFull(int index);
+void LinesTransfer(int index);
+int shift(int index);
 // char *BlockMaker(int BlockValue);
-
-
+void Borders();
 // Start from 1 and go till Length -2 for the values
 void timepass()
 {
 
     for (int i = 0; i < Height; i++)
     {
-        printf("%d::", i + 1);
+        printf("%d::", i );
         for (int j = 0; j < Length; j++)
         {
             printf("%d\t", Postion[i][j]);
@@ -38,9 +40,41 @@ void timepass()
 
 int main()
 {
-    BlockPlacement(-1, -1);
-    // timepass();
-    GridPrinting();
+    Borders();
+    // BlockPlacem\nent(-1, -1);
+    timepass();
+    // for (int i = 1; i < Length-1; i++)
+    // {
+    //  Postion[3][i]=3;
+    //  Postion[2][i]=2;
+    //  Postion[1][i]=1;
+    // }
+    // CheckifFull(3);
+    // LinesTransfer(3);
+    timepass();
+    // GridPrinting();
+}
+void Borders()
+{
+
+    for (int row = 0; row < Height; row++)
+    {
+        for (int col = 0; col < Length; col++)
+        {
+            if ((row == 0) || (row == Height - 1))
+            {
+                Postion[row][col] = -1;
+            }
+            else if ((col == 0) || (col == Length - 1))
+            {
+                Postion[row][col] = -1;
+            }
+            else
+            {
+                Postion[row][col] = 0;
+            }
+        }
+    }
 }
 
 bool isvalid(int *block, int len, int hor, int ver)
@@ -90,12 +124,10 @@ void BlockPlacement(int HorPlacement, int virPlacement)
             exit(0);
         }
 
-        for (int j = 0; j < len; j++)
-        {
-            Postion[virPlacement][HorPlacement + j] = check[j];
-        }
         virPlacement++;
     }
+    GridPrinting();
+    CheckifFull(virPlacement);
 }
 
 void GridPrinting()
@@ -134,4 +166,35 @@ void GridPrinting()
         }
         printf("\n");
     }
+}
+
+void CheckifFull(int index)
+{
+
+    for (int i = 1; i < Length - 1; i++)
+    {
+        if ((Postion[index][i] != 1))
+        {
+            return;
+        }
+    }
+    // If needed add the line animation
+     printf("HAHAHAHA\n");
+    LinesTransfer(index);
+    return;
+}
+void LinesTransfer(int index)
+{
+    // First
+    timepass();
+    for (int i = index; i > 1; i--)
+    {
+        memcpy(Postion[i], Postion[i - 1], sizeof(int) * Length);
+        timepass();
+    }
+    for (int j = 1; j < Length - 1; j++)
+    {
+        Postion[1][j] = 0;
+    }
+    printf("Done\n");
 }
