@@ -15,7 +15,6 @@ To compile
 int Postion[Height][Length];
 void GridPrinting();
 void BlockPlacement(int HorPlacement, int virPlacement);
-bool isvalid(int *block, int len, int hor, int ver);
 // char *BlockMaker(int BlockValue);
 
 
@@ -43,29 +42,7 @@ int main()
     GridPrinting();
 }
 
-bool isvalid(int *block, int len, int hor, int ver)
-{
-    // Directions[hor];
-    for (int i = 0; i < len; i++)
-    {
-        if (block[i] == 1)
-        {
 
-            int row = ver;
-            int col = hor + i;
-            if (row < 0 || row >= Height || col < 0 || col >= Length)
-            {
-                return false;
-            }
-            if (Postion[row][col] == -1 || Postion[row][col] == 2)
-            {
-
-                return false;
-            }
-        }
-    }
-    return true;
-}
 
 void BlockPlacement(int HorPlacement, int virPlacement)
 {
