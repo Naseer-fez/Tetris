@@ -5,11 +5,10 @@
 #define Max 10
 
 int Shapes[Max][3][2] = {
-    {{0, 1},
+    {{-2, 1},
      {1, 1},
-     {0, 1}}};
+     {-2, 1}}};
 char SideValue[2][4] = {"   ", "[#]"};
-
 
 char *BlockMaker(int BlockValue)
 {
@@ -21,7 +20,7 @@ char *BlockMaker(int BlockValue)
     {
         for (int j = 0; j < col; j++)
         {
-            int index = (Shapes[BlockValue][i][j] == 1) ? 1 : 0;
+            int index = (Shapes[BlockValue][i][j] == 1) ? 1 : -2;
             strcat(block, SideValue[index]);
         }
         strcat(block, "\n");
@@ -29,13 +28,25 @@ char *BlockMaker(int BlockValue)
     return block;
 }
 
+int *ShapeSender(int index, int row)
+{
 
+    if (row == -1)
+    {
+        int *tosend = (int *)malloc(sizeof(int) * 2);
+        tosend[0] = (sizeof(Shapes[index]) / sizeof(Shapes[index][0]));
+        tosend[1] = sizeof(Shapes[index][0]) / sizeof(Shapes[index][0][0]);
+        return tosend;
+    }
+
+    return Shapes[index][row];
+}
 
 int RandomvalueGen(int Value)
 {
     srand(time(NULL));
-    if(Value==0)return rand() % Max;
-    else return rand()%Value;
-    
+    if (Value == 0)
+        return rand() % Max;
+    else
+        return rand() % Value;
 }
-
